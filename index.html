@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .vis-hidden {
+        visibility: hidden;
+        }
+          .display-none {
+        display: none;
+        }
+        
+    </style>
+    <script src="node_modules/axe-core/axe.min.js"></script>
+    <title>Axe vs. ARC Tests</title>
+</head>
+<body>
+  <h1>Accessibility Tests</h1>
+    <h2>Input with multiple labels</h2>
+    <h3>Form input with associated label (for/id) and a valid aria-labelledby attribute</h3>
+    <label for="input1">Name</label>
+    <input type="text" id="input1" aria-labelledby="aria-ref1">
+    
+    <span id="aria-ref1">Email</span>
+    <br>
+    <h3>Form input with associated label (for/id) and an aria-labelledby attribute referencing an element hidden using display: none</h3>
+    <label for="input2">Name</label>
+    <input type="text" id="input2" aria-labelledby="aria-ref2">
+    
+    <span id="aria-ref2" style="display:none">Email</span>
+    <br>
+    <h3>Form input with aria-label and wrapped in a label </h3>
+    <label>
+        Email
+        <input type="text" id="input3" aria-label="Name">
+    </label>
+
+    <h2>Various input/label combinations</h2>
+    <h3>Label visibility hidden, input visibility hidden</h3>
+    <input type="text" id="label-vis-hidden1" class="vis-hidden">
+    <label for="label-vis-hidden1" class="vis-hidden">Name</label>
+       <br>
+                <h3>Label visibility hidden, input exposed </h3>
+    <input type="text" id="label-vis-hidden2" >
+    <label for="label-vis-hidden2" class="vis-hidden">Name</label>
+       <br>   
+      
+                   <h3>Label display none, input display none</h3>
+    <input type="text" id="label-dis-none1" class="display-none">
+   <label for="label-dis-none1" class="display-none">Name</label>
+       <br>
+       
+               <h3>Label display none, input exposed</h3>
+    <input type="text" id="label-dis-none2" >
+   <label for="label-dis-none2" class="display-none">Name</label> 
+
+   <script type="text/javascript">
+    axe.run()
+      .then(results => {
+        var strResults = JSON.stringify(results)
+        console.dir(results);
+        console.log(strResults);
+        var tab = window.open('about:blank', '_blank');
+        tab.document.write(strResults); // where 'html' is a variable containing your HTML
+        tab.document.close(); // to finish loading the page
+      })
+      .catch(err => {
+        console.error('Something bad happened:', err.message);
+      });	
+    </script>
+</body>
+</html>
