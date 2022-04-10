@@ -9,7 +9,7 @@ const driver = new WebDriver.Builder().forBrowser('chrome').build()
 
 let axeResults
 
-driver.get('https://dequeuniversity.com/demo/mars/').then(() => {
+driver.get('https://aaronbnb.github.io/acme-insurance').then(() => {
   new AxeBuilder(driver).analyze((err, results) => {
     if (err) {
       // Handle error somehow
